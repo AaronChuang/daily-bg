@@ -1,0 +1,3 @@
+[submodule "grpc-proto"]
+	path = grpc-proto
+	url = git@github.com:AaronChuang/grpc-proto.git
