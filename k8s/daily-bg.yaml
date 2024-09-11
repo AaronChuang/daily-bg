@@ -30,6 +30,21 @@ spec:
               value: "/etc/grpc/tls/tls.crt"
             - name: GRPC_SERVER_KEY
               value: "/etc/grpc/tls/tls.key"
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-pw
+                  key: mongodb.account
+            - name: MONGO_PW
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-pw
+                  key: mongodb.password
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config
+                  key: mongodb.uri
           volumeMounts:
             - name: grpc-tls
               mountPath: /etc/grpc/tls
