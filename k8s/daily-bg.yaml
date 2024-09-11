@@ -25,6 +25,14 @@ spec:
             limits:
               cpu: "1000m"
               memory: "1Gi"
+          env:
+            - name: GRPC_SERVER_CERT
+              value: "/etc/grpc/tls/tls.crt"
+            - name: GRPC_SERVER_KEY
+              value: "/etc/grpc/tls/tls.key"
+          volumeMounts:
+            - name: grpc-tls
+              mountPath: /etc/grpc/tls
           livenessProbe:
             httpGet:
               path: /q/health/live
@@ -41,7 +49,10 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
-
+      volumes:
+        - name: grpc-tls
+          secret:
+            secretName: k8s-grpc-tls
 ---
 apiVersion: v1
 kind: Service
